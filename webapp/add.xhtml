@@ -1,0 +1,58 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:mj="http://mojarra.dev.java.net/mojarra_ext" xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>OC | JSF - EJB - AJOUTER UN ETUDIANT</title>
+	<link href="./ressources/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="main.css" rel="stylesheet" />
+	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</h:head>
+
+<h:body styleClass="body-bg w-80 mx-auto p-2">
+	<center>
+		<h2><span>
+				<h:outputText value="Ajoutez un etudiant" /></span></h2>
+	</center>
+	<h:form styleClass="w-50 mx-auto p-2" onsubmit="success();">
+		<p:panelGrid styleClass="row">
+			<div class="form-group my-3">
+				<h:message for="firstname" />
+				<h:outputLabel for="firstname" value="Prénom :" styleClass="control-label text-uppercase" />
+				<p:inputText value="#{etudiantBean.etudiant.firstname}" id="firstname" a:placeholder="Entrer le prénom"
+					styleClass="form-control" validatorMessage="Le champ prénom est requis !" required="true" />
+			</div>
+			<div class="form-group my-3">
+				<h:message for="lastname" />
+				<h:outputLabel for="lastname" value="Nom :" styleClass="control-label text-uppercase" />
+				<p:inputText value="#{etudiantBean.etudiant.lastname}" id="lastname" a:placeholder="Entrer le nom"
+					styleClass="form-control" validatorMessage="Le champ nom est requis !" required="true" />
+			</div>
+			<div class="form-group my-3">
+				<h:message for="d-naiss" />
+				<h:outputLabel for="d-naiss" value="Date de naiss. :" styleClass="control-label text-uppercase" />
+				<p:calendar value="#{etudiantBean.etudiant.birthday}" id="d-naiss" a:placeholder="Entrer la date de naissance"
+					pattern="yyyy-MM-dd" showOn="both" styleClass="d-block"
+					validatorMessage="Le champ date de naissance est requise !" required="true"></p:calendar>
+			</div>
+			<div class="form-group my-5">
+				<h:commandButton type="submit" value="Ajouter" action="#{etudiantBean.addNewEtud}" class="btn btn-success d-block w-100 " update=":dialog" oncomplete="PF('dialog').show()"></h:commandButton>
+				<h:link outcome="index" value="Voir la liste des etudiants" class="btn btn-info d-block my-1" />
+			</div>
+		</p:panelGrid>
+	</h:form>
+		<script>
+				 function success() {
+					    swal("Inscription reussie :", "L'étudiant (e) #{etudiantBean.etudiant.firstname} #{etudiantBean.etudiant.lastname} a été ajouté (e)", "success");
+					}
+		</script>
+		<p:confirmDialog id="dialog" header="Confirmation" widgetVar="dialog" modal="true" style="background-color: lightgreen; font-size: 20px; margin: 10px;">
+			<h:outputText value="L'étudiant #{etudiantBean.etudiant.firstname} #{etudiantBean.etudiant.lastname} a été ajouté à la liste." />
+			<p:commandButton value="OK" onclick="PF('dialog').hide()" />
+		</p:confirmDialog>
+</h:body>
+
+</html>

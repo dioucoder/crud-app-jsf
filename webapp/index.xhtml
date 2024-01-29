@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:f="http://java.sun.com/jsf/core" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:mj="http://mojarra.dev.java.net/mojarra_ext" 
+xmlns:p="http://primefaces.org/ui"
+xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+    <title>OC | JSF - EJB - LISTE ETUDIANTS</title>
+    <link href="./ressources/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="main.css" rel="stylesheet" />
+</h:head>
+
+<h:body styleClass="body-bg w-80 mx-auto p-2">
+<div class="p-4">
+    <center><h2><span><h:outputText value="Liste des etudiants inscrits" /></span></h2></center>
+    <h:form styleClass="form">
+    		 <p:dataTable emptyMessage="Aucune donnée trouvée !" value="#{etudiantBean.listEtudiants()}" var="etud" class="table table-striped table-hover table-bordered">
+    		 	<p:column>
+                    <f:facet name="header">Identifiant (s)</f:facet>
+                    <strong>#{etud.id}</strong>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Prénom (s)</f:facet>
+                    <strong class="outputLabel">#{etud.firstname}</strong>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Nom (s)</f:facet>
+                     <strong class="outputLabel">#{etud.lastname}</strong>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Date (s) De Naiss.</f:facet>
+                     <strong class="outputLabel">#{etud.birthday}</strong>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Commande (s)</f:facet>
+                    <div class="d-flex">
+                    	<h:panelGrid styleClass="row">
+                    		 <h:commandButton action="#{etudiantBean.updatePage(etud.id)}" value="Modifier" styleClass="btn btn-success col-md-12 text-white fs-6"></h:commandButton>
+                    	</h:panelGrid>
+                    	<h:panelGrid styleClass="row">
+                    		 <h:commandButton action="#{etudiantBean.deleteEtudiant(etud.id, etud.firstname, etud.lastname)}" value="Supprimer" styleClass="btn btn-danger col-md-12 text-white fs-6" onclick="if(!confirm('Etes-vous sûr de vouloir supprimer l\'etudiant ?')) return false;"></h:commandButton>
+                    	</h:panelGrid>
+					</div>
+                </p:column>
+    		 </p:dataTable>
+    		<center><h:commandButton action="add.xhtml?faces-redirect=true" value="Ajouter un etudiant" class="btn btn-warning"></h:commandButton></center>
+    </h:form>
+</div>
+		
+	
+</h:body>
+</html>
